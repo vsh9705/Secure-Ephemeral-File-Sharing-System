@@ -1,0 +1,59 @@
+[cron] TTL sweep scheduler started (every 60s)
+[server] Running on http://localhost:3001
+[cron] Expired and deleted: e01ffc3f-0522-468c-a27a-bd3db3359382
+[2026-10-02T12:41:10.671Z] GET /health
+[2026-10-02T12:42:42.102Z] GET /health
+[2026-10-02T12:42:42.129Z] POST /upload
+[upload] Stored file 7a3ba3dc-dfc1-4e92-9244-762f63d71e76, TTL=60s, password_protected=true
+[cron] Expired and deleted: 7a3ba3dc-dfc1-4e92-9244-762f63d71e76
+[2026-10-02T12:44:03.000Z] GET /health
+[2026-10-02T12:44:03.008Z] POST /upload
+[upload] Stored file 463970ed-e798-41dd-a861-8c860459d986, TTL=60s, password_protected=false
+[cron] Expired and deleted: 463970ed-e798-41dd-a861-8c860459d986
+[2026-10-02T12:46:40.735Z] GET /health
+[2026-10-02T12:46:40.743Z] POST /upload
+[upload] Stored file 5af372c7-025d-438d-a6ff-ae80cbde6687, TTL=60s, password_protected=true
+[2026-10-02T12:46:40.840Z] POST /download/5af372c7-025d-438d-a6ff-ae80cbde6687
+[2026-10-02T12:46:40.844Z] POST /download/5af372c7-025d-438d-a6ff-ae80cbde6687
+[download] Served and deleted: 5af372c7-025d-438d-a6ff-ae80cbde6687
+[2026-10-02T12:47:32.564Z] GET /health
+[2026-10-02T12:47:32.570Z] POST /upload
+[upload] Stored file 14dd51db-074f-44df-b6ab-ca285f380e61, TTL=60s, password_protected=false
+[2026-10-02T12:47:32.573Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.578Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.582Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.587Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.590Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.593Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.597Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.600Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.604Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.607Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.610Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:32.613Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
+[2026-10-02T12:47:57.719Z] GET /health
+[2026-10-02T12:47:57.722Z] POST /upload
+[upload] Stored file d4d7ecc5-e7a9-4f37-849c-dea10798eea6, TTL=60s, password_protected=true
+[2026-10-02T12:47:57.803Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.881Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.961Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.964Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.967Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.969Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.972Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.974Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.976Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.978Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.981Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:47:57.983Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[2026-10-02T12:48:25.502Z] GET /health
+[2026-10-02T12:48:25.506Z] POST /upload
+[upload] Stored file 59a0b43e-f6c6-4098-ac92-589bc5c83bd4, TTL=2s, password_protected=false
+[2026-10-02T12:48:28.510Z] POST /download/59a0b43e-f6c6-4098-ac92-589bc5c83bd4
+[2026-10-02T12:48:56.036Z] GET /health
+[2026-10-02T12:48:56.038Z] GET /health
+[cron] Expired and deleted: 14dd51db-074f-44df-b6ab-ca285f380e61
+[cron] Expired and deleted: d4d7ecc5-e7a9-4f37-849c-dea10798eea6
+[cron] Expired and deleted: 59a0b43e-f6c6-4098-ac92-589bc5c83bd4
+[2026-10-02T12:50:30.687Z] POST /upload
+[upload] Stored file 01e6cec4-326b-4250-8f64-852a80d5c3eb, TTL=60s, password_protected=true

@@ -21,4 +21,17 @@ db.exec(`
   )
 `);
 
+// Persist download rate-limit timestamps so restarts and multiple backend
+// processes cannot reset or bypass the per-IP window.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS download_attempts (
+    ip          TEXT NOT NULL,
+    attempted_at INTEGER NOT NULL
+  );
+  CREATE INDEX IF NOT EXISTS idx_download_attempts_ip_time
+    ON download_attempts (ip, attempted_at);
+  CREATE INDEX IF NOT EXISTS idx_download_attempts_time
+    ON download_attempts (attempted_at);
+`);
+
 module.exports = db;

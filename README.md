@@ -1,6 +1,6 @@
 # ephemeral.share
 
-A secure, zero-trust ephemeral file sharing system where the server never sees your encryption key, your plaintext, or your password — ever.
+A secure, zero-trust ephemeral file sharing system where the server never sees your encryption key or plaintext, and never persists a raw password.
 
 Built as the implementation phase of a B.Tech final year project on *RAG-Driven Analysis of Secure Ephemeral File Sharing Systems* at LNMIIT, Jaipur.
 
@@ -24,11 +24,11 @@ Built as the implementation phase of a B.Tech final year project on *RAG-Driven 
 |---|---|
 | Key never leaves the client | Web Crypto API — key generated and used in browser only |
 | Server stores no plaintext | AES-GCM encryption before upload |
-| Server stores no raw secrets | SHA-256(key) and Argon2id(password) digests only |
+| Server persists no raw secrets | SHA-256(key) and Argon2id(password) digests only |
 | Key invisible to server logs | Decryption key in URL `#fragment` — HTTP semantics guarantee it is never transmitted |
 | One-time access | Atomic SQLite transaction marks file accessed and deletes blob in one operation |
 | Automatic expiry | `node-cron` TTL sweep deletes expired files every 60 seconds |
-| Password protection | Argon2id hashing — brute force infeasible (~1s per attempt) |
+| Password protection | Argon2id hashing on receipt; online attempts are rate limited |
 
 These properties map directly to 8 design principles synthesised from a corpus of 30 security research papers using a RAG pipeline (LangChain + FAISS + Llama 3.3 70B).
 

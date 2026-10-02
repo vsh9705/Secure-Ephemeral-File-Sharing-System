@@ -35,15 +35,16 @@ app.use((req, res, next) => {
 // Receives:
 //   encrypted_blob  : base64 string  (AES-GCM ciphertext from browser)
 //   key_hash        : hex string     (SHA-256 of encryption key — DP3)
-//   password_hash   : hex string?    (Argon2id of password, optional — DP3)
+//   password        : string?        (optional; immediately Argon2id hashed)
 //   ttl_seconds     : integer        (e.g. 3600 for 1 hour)
 //   original_name   : string         (filename to restore on download)
 //   mime_type       : string         (file MIME type)
 //
 // Does NOT receive the raw key. Never. The key stays in the browser.
 app.post('/upload', async (req, res) => {
+  let blob_path;
   try {
-    const { encrypted_blob, key_hash, password_hash, ttl_seconds, original_name, mime_type } = req.body;
+    const { encrypted_blob, key_hash, password, ttl_seconds, original_name, mime_type } = req.body;
 
     // Validate required fields
     if (!encrypted_blob || typeof encrypted_blob !== 'string') {
@@ -55,9 +56,16 @@ app.post('/upload', async (req, res) => {
     if (!ttl_seconds || typeof ttl_seconds !== 'number' || ttl_seconds < 1 || ttl_seconds > 604800) {
       return res.status(400).json({ error: 'ttl_seconds must be between 1 and 604800 (7 days)' });
     }
+    if (password !== undefined && typeof password !== 'string') {
+      return res.status(400).json({ error: 'password must be a string' });
+    }
+
+    // Hash the optional password before persistence. argon2.hash uses Argon2id
+    // by default; the plaintext is never written to the database.
+    const password_hash = password?.length ? await argon2.hash(password) : null;
 
     const file_id = crypto.randomUUID();
-    const blob_path = path.join(UPLOADS_DIR, `${file_id}.bin`);
+    blob_path = path.join(UPLOADS_DIR, `${file_id}.bin`);
 
     // Write ciphertext to disk
     const blobBuffer = Buffer.from(encrypted_blob, 'base64');
@@ -75,7 +83,7 @@ app.post('/upload', async (req, res) => {
       original_name || 'file',
       mime_type || 'application/octet-stream',
       key_hash,
-      password_hash || null,
+      password_hash,
       ttl_expires_at
     );
 
@@ -84,6 +92,11 @@ app.post('/upload', async (req, res) => {
     return res.status(200).json({ file_id });
 
   } catch (err) {
+    // The blob and DB row cannot share a transaction. If persistence fails
+    // after writing the blob, remove the unreferenced file.
+    if (blob_path) {
+      try { fs.unlinkSync(blob_path); } catch (_) {}
+    }
     console.error('[upload] Error:', err.message);
     return res.status(500).json({ error: 'Upload failed' });
   }
@@ -117,15 +130,38 @@ app.get('/file-info/:id', (req, res) => {
   });
 });
 
+const recordDownloadAttempt = db.transaction((ip, now) => {
+  const windowStart = now - 60000;
+  db.prepare('DELETE FROM download_attempts WHERE attempted_at < ?').run(windowStart);
+  const count = db.prepare(
+    'SELECT COUNT(*) AS count FROM download_attempts WHERE ip = ? AND attempted_at >= ?'
+  ).get(ip, windowStart).count;
+  if (count >= 10) return false;
+  db.prepare('INSERT INTO download_attempts (ip, attempted_at) VALUES (?, ?)').run(ip, now);
+  return true;
+});
+
+function rateLimitDownload(req, res, next) {
+  const ip = req.ip || req.connection.remoteAddress;
+  const now = Date.now();
+  try {
+    if (!recordDownloadAttempt(ip, now)) {
+      return res.status(429).json({ error: 'Too many attempts. Try again in a minute.' });
+    }
+    next();
+  } catch (err) {
+    console.error('[download] Rate-limit check failed:', err.message);
+    return res.status(500).json({ error: 'Could not process download request' });
+  }
+}
 // ─── POST /download/:id ───────────────────────────────────────────────────────
 // Receives:
 //   key_hash      : hex string   (SHA-256 of key — server verifies without seeing key)
 //   password      : string?      (raw password, if file is password-protected)
 //
-// DP7 — atomic read-and-delete:
-//   Inside a single SQLite transaction, we check accessed, mark it true,
-//   read the blob, and delete it. No second caller can get in between.
-app.post('/download/:id', async (req, res) => {
+// DP7 — claim, read, and remove the DB record in one synchronous transaction.
+// The conditional update makes only one concurrent caller the winner.
+app.post('/download/:id', rateLimitDownload, async (req, res) => {
   const { key_hash, password } = req.body;
 
   if (!key_hash || typeof key_hash !== 'string') {
@@ -171,29 +207,46 @@ app.post('/download/:id', async (req, res) => {
     }
   }
 
-  // DP7 — atomic read-and-delete transaction
-  // Mark accessed=1 and read blob atomically — no replay possible
+  // Password verification above can yield to another request. Claim with a
+  // conditional update only after all credentials have passed.
   const atomicDownload = db.transaction(() => {
-    db.prepare('UPDATE files SET accessed = 1 WHERE id = ?').run(file.id);
-    return db.prepare('SELECT blob_path, original_name, mime_type FROM files WHERE id = ?').get(file.id);
+    const claim = db.prepare(`
+      UPDATE files SET accessed = 1
+      WHERE id = ? AND accessed = 0 AND ttl_expires_at > ?
+    `).run(file.id, Math.floor(Date.now() / 1000));
+    if (claim.changes !== 1) return null;
+
+    const record = db.prepare(
+      'SELECT blob_path, original_name, mime_type FROM files WHERE id = ?'
+    ).get(file.id);
+    const blobBuffer = fs.readFileSync(record.blob_path);
+    db.prepare('DELETE FROM files WHERE id = ?').run(file.id);
+    return { record, blobBuffer };
   });
 
-  const record = atomicDownload();
-
-  let blobBuffer;
+  let result;
   try {
-    blobBuffer = fs.readFileSync(record.blob_path);
+    result = atomicDownload();
   } catch (err) {
+    console.error('[download] Failed to claim/read file:', err.message);
     return res.status(500).json({ error: 'Could not read file blob' });
   }
 
-  // Delete blob from disk after reading (DP7)
+  if (!result) {
+    const current = db.prepare('SELECT ttl_expires_at FROM files WHERE id = ?').get(file.id);
+    if (!current || current.ttl_expires_at <= Math.floor(Date.now() / 1000)) {
+      return res.status(404).json({ error: 'File not found or expired' });
+    }
+    return res.status(410).json({ error: 'File has already been accessed. One-time access only.' });
+  }
+
+  const { record, blobBuffer } = result;
+  // The database claim and record deletion have committed. Remove the blob.
   try {
     fs.unlinkSync(record.blob_path);
-  } catch (_) {}
-
-  // Delete DB record (DP7)
-  db.prepare('DELETE FROM files WHERE id = ?').run(file.id);
+  } catch (err) {
+    console.error(`[download] Failed to delete blob for ${file.id}:`, err.message);
+  }
 
   console.log(`[download] Served and deleted: ${file.id}`);
 
