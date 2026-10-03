@@ -1,0 +1,168 @@
+{
+  "files": [
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "2f2f206261636b656e642f63726f6e2e6a730a2f2f2052756e73206576657279203630207365636f6e64732e2046696e647320616c6c2066696c65732077686f",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/cron.js",
+      "sample_entropy_bits_per_byte": 4.9335,
+      "sha256": "01dac553483ad3a2a3aa9f0cdd82de7c6a1ea07721686b23f48bf1166a8a2809",
+      "size": 1193
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "2f2f206261636b656e642f64622e6a730a636f6e7374204461746162617365203d207265717569726528276265747465722d73716c6974653327293b0a636f6e",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/db.js",
+      "sample_entropy_bits_per_byte": 4.9819,
+      "sha256": "371b681edc4103b5ef01ef88eb07c7848535eaf4ee8699220e211fb9eaed79dc",
+      "size": 1141
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "53514c69746520666f726d6174203300100002020040202000000001000000010000000000000000000000000000000000000000000000000000000000000000",
+      "is_sqlite_database": true,
+      "path": "/home/vasu/repos/btp/backend/fileshare.db",
+      "sample_entropy_bits_per_byte": 0.0906,
+      "sha256": "97e8d54f8a7255106f66cf1b213c4a4d7b558d21310b1c2bfedc3d0d526dddda",
+      "size": 4096
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "18e22d000000000010000000010000101901000006000000cc996f8986ff1165b61b4e11f6cd399e6b5c570f8753d6ef18e22d00000000001000000001000010",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/fileshare.db-shm",
+      "sample_entropy_bits_per_byte": 0.2695,
+      "sha256": "59ba870f0d91a29d5c151d7007c6c3e3cf8ee6790c0c55db79a0e74c9a2a81a0",
+      "size": 32768
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "377f0682002de2180000100000000000b61b4e11f6cd399ee6351ec93c56c4640000000100000000b61b4e11f6cd399ed9ba18478692451d53514c6974652066",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/fileshare.db-wal",
+      "sample_entropy_bits_per_byte": 0.5268,
+      "sha256": "d997f016d672e5e0ff33acfa33933e3e6b9d306f3750ad10a1661c801c102cbb",
+      "size": 1157752
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "7b0a2020226e616d65223a20226261636b656e64222c0a20202276657273696f6e223a2022312e302e30222c0a2020226c6f636b66696c6556657273696f6e22",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/package-lock.json",
+      "sample_entropy_bits_per_byte": 5.1915,
+      "sha256": "61291f8a33f7284d7267bf8d80ebf5403a0db1c63c68bbca86b9d869c1aead44",
+      "size": 42998
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "7b0a2020226e616d65223a20226261636b656e64222c0a20202276657273696f6e223a2022312e302e30222c0a2020226465736372697074696f6e223a202222",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/package.json",
+      "sample_entropy_bits_per_byte": 4.5144,
+      "sha256": "bd6400eb643fc2092674e7bcef2784b894630ba5a9a819893ec3249293154d14",
+      "size": 431
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "2f2f206261636b656e642f7365727665722e6a730a636f6e73742065787072657373203d207265717569726528276578707265737327293b0a636f6e73742063",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/server.js",
+      "sample_entropy_bits_per_byte": 5.1508,
+      "sha256": "c8a1a9649a5ce671725f90ca70ad84761991466125946bc15eed3c4e02d49caf",
+      "size": 10418
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "5b63726f6e5d2054544c207377656570207363686564756c657220737461727465642028657665727920363073290a5b7365727665725d2052756e6e696e6720",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/server.log",
+      "sample_entropy_bits_per_byte": 5.2524,
+      "sha256": "6daae8d9f08e4b2ff867182fad1fab740020ca380c664c93008ef3e93c5d0529",
+      "size": 359
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "c9f81d056f8fcb99f78c9ee944a33746e210725e42d1ff3051a74c4624ec9c24c74abe57307db4cd3dc10427cf9499d7db56cd1d8c6c3a9d49",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/uploads/23bb9d82-086f-4ae2-b30b-84efeafefcbb.bin",
+      "sample_entropy_bits_per_byte": 5.5873,
+      "sha256": "c46936185fd7dfbaf167344f50f049e4ac2e99e7c3b52818e8363756816087f9",
+      "size": 57
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "ae9e2da088fa0636308f93e5fd74e7791784eea9fb88e708b4078b35acecad228c26af3161d1f3a909dd7bc5702f48ae9dddade9e6b845052d1c78973ea99954",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/uploads/7cb12dab-0d9e-4327-8a6f-7438c28f2eb7.bin",
+      "sample_entropy_bits_per_byte": 7.997,
+      "sha256": "4d94418ae82469bfa761fc6f399ad9a03a27f7189a507593699adad61ba9b619",
+      "size": 456742
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "dc54d567023a9416219c73c9ca879af5f6c69476d2abc7dec485c38c1367bd556372574ac9c829cc9143a99d145ffb76a760ac6766cb",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/uploads/8392f144-f9c0-48d5-a895-9aa0905c1225.bin",
+      "sample_entropy_bits_per_byte": 5.5557,
+      "sha256": "00b5aec0469c2d661f012c6965e03a29619b9840e91937fb498aaa0888899023",
+      "size": 54
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "737297950d401f3bd37f263f54ea4705190e857af7d30ab1ce7efa9b916d3e9492573bd0c1a0dc4c9a9d7ae0d0703b3f99eed426de006bfc4d7360f29165cb4b",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/uploads/85525631-1c5e-40a4-b887-4ec6d71293b4.bin",
+      "sample_entropy_bits_per_byte": 7.9971,
+      "sha256": "e7a6315cec13c25427159dad10ac68914204f24b804f144e7ef310855b00b5ef",
+      "size": 456742
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "7ea7b094c2162e212a8a8c708aed9d85360c75d30380b5bd9f97e58cb055785ab7255fc69a376d61d4f6aef75e4af559ba9c7b7b6dd7e2ad1e1b5dc1860c51f6",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/uploads/89a99338-ea36-4f01-a6a5-b5b5b1102800.bin",
+      "sample_entropy_bits_per_byte": 5.8436,
+      "sha256": "cd2e6f4093b8fb90e697f4724aafef84a5991d956d8d93f85b78d87954e4371d",
+      "size": 70
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "8fdad6c5f229c8cb166648a8489319110a71cd2ad4e4ce7162b98b55b083d8326307dba52320130b69e4641fa6cc3b9645217f4d24dbfe82160fbba314d49750",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/uploads/968b096e-f0e7-4e64-ad53-8c83acc8b29f.bin",
+      "sample_entropy_bits_per_byte": 5.9007,
+      "sha256": "594d0e73ae5b4eb7017484b7706975009ca1cbf8ff58c5cefa6527f9f59dcc91",
+      "size": 70
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "3fd5140af724962054522c54408fa3248afb57e5d4291c32e5fde6fedb6247316cfc8e804497868c72128d63fd77bad3786c21602a4d4ee90833c585c15fc665",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/uploads/c4ff5b6a-112d-4089-a47d-f4610c74a36c.bin",
+      "sample_entropy_bits_per_byte": 6.059,
+      "sha256": "96b153e481cb4d4aba2689a3bffa293c5b104cc170403158bebfca0b56ceb0c0",
+      "size": 77
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "7a14f02eee187fdebbdb9bfb461797bbc268b1d2b3f4dfd76744dc2285f7ad0cde2d1da3af1000f5cfb50d5c0d7c9f6cc5be821e215ba7fe0c9e5283f13f2d5e",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/uploads/e78027b1-470b-41dc-b0f5-9f7da60fc4e9.bin",
+      "sample_entropy_bits_per_byte": 5.9864,
+      "sha256": "179219f7543df94baca064cd55a329a108d73f82b3b3e8320665f5ee9fb58562",
+      "size": 70
+    },
+    {
+      "contains_known_plaintext": false,
+      "first_64_bytes_hex": "aed1e35b33c890bb0e8772949a2385eac0c7fe28f543b6736d55e0e337451cf28658908972f2f8e9e4026901b6718d3a02d6fb5cbdb80a53595291ae756fc4bb",
+      "is_sqlite_database": false,
+      "path": "/home/vasu/repos/btp/backend/uploads/fc6a6ee6-dde3-472a-93de-f23bb75d8a52.bin",
+      "sample_entropy_bits_per_byte": 6.0893,
+      "sha256": "4cf161c8e22f68b3feb37d65b7dae37b18d636a8dee4775ac6231f520cc4d1b2",
+      "size": 82
+    }
+  ],
+  "marker_sha256": "fdc3fe55063ee6d3360107f68f70fc86e5ac6ec94dbf2f33fefad854a42b7ba4",
+  "root": "/home/vasu/repos/btp/backend"
+}

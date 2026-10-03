@@ -1,59 +1,30 @@
 [cron] TTL sweep scheduler started (every 60s)
 [server] Running on http://localhost:3001
-[cron] Expired and deleted: e01ffc3f-0522-468c-a27a-bd3db3359382
-[2026-10-02T12:41:10.671Z] GET /health
-[2026-10-02T12:42:42.102Z] GET /health
-[2026-10-02T12:42:42.129Z] POST /upload
-[upload] Stored file 7a3ba3dc-dfc1-4e92-9244-762f63d71e76, TTL=60s, password_protected=true
-[cron] Expired and deleted: 7a3ba3dc-dfc1-4e92-9244-762f63d71e76
-[2026-10-02T12:44:03.000Z] GET /health
-[2026-10-02T12:44:03.008Z] POST /upload
-[upload] Stored file 463970ed-e798-41dd-a861-8c860459d986, TTL=60s, password_protected=false
-[cron] Expired and deleted: 463970ed-e798-41dd-a861-8c860459d986
-[2026-10-02T12:46:40.735Z] GET /health
-[2026-10-02T12:46:40.743Z] POST /upload
-[upload] Stored file 5af372c7-025d-438d-a6ff-ae80cbde6687, TTL=60s, password_protected=true
-[2026-10-02T12:46:40.840Z] POST /download/5af372c7-025d-438d-a6ff-ae80cbde6687
-[2026-10-02T12:46:40.844Z] POST /download/5af372c7-025d-438d-a6ff-ae80cbde6687
-[download] Served and deleted: 5af372c7-025d-438d-a6ff-ae80cbde6687
-[2026-10-02T12:47:32.564Z] GET /health
-[2026-10-02T12:47:32.570Z] POST /upload
-[upload] Stored file 14dd51db-074f-44df-b6ab-ca285f380e61, TTL=60s, password_protected=false
-[2026-10-02T12:47:32.573Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.578Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.582Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.587Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.590Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.593Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.597Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.600Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.604Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.607Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.610Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:32.613Z] POST /download/14dd51db-074f-44df-b6ab-ca285f380e61
-[2026-10-02T12:47:57.719Z] GET /health
-[2026-10-02T12:47:57.722Z] POST /upload
-[upload] Stored file d4d7ecc5-e7a9-4f37-849c-dea10798eea6, TTL=60s, password_protected=true
-[2026-10-02T12:47:57.803Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.881Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.961Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.964Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.967Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.969Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.972Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.974Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.976Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.978Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.981Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:47:57.983Z] POST /download/d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[2026-10-02T12:48:25.502Z] GET /health
-[2026-10-02T12:48:25.506Z] POST /upload
-[upload] Stored file 59a0b43e-f6c6-4098-ac92-589bc5c83bd4, TTL=2s, password_protected=false
-[2026-10-02T12:48:28.510Z] POST /download/59a0b43e-f6c6-4098-ac92-589bc5c83bd4
-[2026-10-02T12:48:56.036Z] GET /health
-[2026-10-02T12:48:56.038Z] GET /health
-[cron] Expired and deleted: 14dd51db-074f-44df-b6ab-ca285f380e61
-[cron] Expired and deleted: d4d7ecc5-e7a9-4f37-849c-dea10798eea6
-[cron] Expired and deleted: 59a0b43e-f6c6-4098-ac92-589bc5c83bd4
-[2026-10-02T12:50:30.687Z] POST /upload
-[upload] Stored file 01e6cec4-326b-4250-8f64-852a80d5c3eb, TTL=60s, password_protected=true
+[cron] Expired and deleted: e78027b1-470b-41dc-b0f5-9f7da60fc4e9
+[2026-10-02T16:09:02.064Z] [PID: 77958] [32m[NODE-CRON][32m [33m[WARN][0m missed execution at Fri Oct 02 2026 16:09:00 GMT+0000 (Coordinated Universal Time)! Possible blocking IO or high CPU user at the same process used by node-cron.
+82-086f-4ae2-b30b-84efeafefcbb
+[cron] Expired and deleted: 8392f144-f9c0-48d5-a895-9aa0905c1225
+[cron] Expired and deleted: c4ff5b6a-112d-4089-a47d-f4610c74a36c
+[cron] Expired and deleted: fc6a6ee6-dde3-472a-93de-f23bb75d8a52
+[2026-10-02T14:37:42.476Z] POST /upload
+[upload] Stored file 46da2789-fa7d-4484-9fe0-16a9e1db0cef, TTL=3600s, password_protected=false
+[2026-10-02T14:44:05.030Z] POST /download/85525631-1c5e-40a4-b887-4ec6d71293b4
+[download] Served and deleted: 85525631-1c5e-40a4-b887-4ec6d71293b4
+[2026-10-02T14:44:05.040Z] POST /download/85525631-1c5e-40a4-b887-4ec6d71293b4
+[2026-10-02T14:44:05.042Z] POST /download/85525631-1c5e-40a4-b887-4ec6d71293b4
+[2026-10-02T14:44:05.044Z] POST /download/85525631-1c5e-40a4-b887-4ec6d71293b4
+[2026-10-02T14:44:05.046Z] POST /download/85525631-1c5e-40a4-b887-4ec6d71293b4
+[2026-10-02T14:44:05.048Z] POST /download/85525631-1c5e-40a4-b887-4ec6d71293b4
+[2026-10-02T14:44:05.049Z] POST /download/85525631-1c5e-40a4-b887-4ec6d71293b4
+[2026-10-02T14:44:05.051Z] POST /download/85525631-1c5e-40a4-b887-4ec6d71293b4
+[cron] Expired and deleted: 7cb12dab-0d9e-4327-8a6f-7438c28f2eb7
+[cron] Expired and deleted: 89a99338-ea36-4f01-a6a5-b5b5b1102800
+[cron] Expired and deleted: e78027b1-470b-41dc-b0f5-9f7da60fc4e9
+[cron] Expired and deleted: 968b096e-f0e7-4e64-ad53-8c83acc8b29f
+[cron] Expired and deleted: 46da2789-fa7d-4484-9fe0-16a9e1db0cef
+[2026-10-02T16:03:49.683Z] POST /upload
+[upload] Stored file 9129e28f-fb5e-4d09-b741-0cc797164ce9, TTL=3600s, password_protected=true
+[2026-10-02T16:07:12.282Z] POST /download/9129e28f-fb5e-4d09-b741-0cc797164ce9
+[2026-10-02T16:07:13.381Z] POST /download/9129e28f-fb5e-4d09-b741-0cc797164ce9
+[2026-10-02T16:07:14.451Z] POST /download/9129e28f-fb5e-4d09-b741-0cc797164ce9
+[2026-10-02T16:09:02.009Z] [PID: 75039] [32m[NODE-CRON][32m [33m[WARN][0m missed execution at Fri Oct 02 2026 16:09:00 GMT+0000 (Coordinated Universal Time)! Possible blocking IO or high CPU user at the same process used by node-cron.

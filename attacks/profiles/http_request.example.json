@@ -1,0 +1,10 @@
+{
+  "method": "POST",
+  "url": "http://localhost:3001/example/{{ID}}",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "json": {
+    "candidate": "{{GUESS}}"
+  }
+}

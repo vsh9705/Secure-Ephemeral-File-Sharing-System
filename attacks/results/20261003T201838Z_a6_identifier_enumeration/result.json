@@ -1,0 +1,178 @@
+{
+  "attempt_count": 6,
+  "observations": [
+    {
+      "body_preview": "{\"password_protected\":false,\"original_name\":\"Attack results.txt\",\"mime_type\":\"text/plain\",\"expires_at\":1791062097}",
+      "body_sha256": "b6be6ad99513c3069d3fcd76d2b70b4c993d5fc677895314782d09fc54afcb74",
+      "content_length": 114,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 5.75,
+      "identifier_sha256": "d493fde2822dd1ced5fe35e3ffd6ac12c5c8fccca07643b6ed1ade87c3ab31fc",
+      "method": "GET",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "114",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 03 Oct 2026 20:18:38 GMT",
+        "ETag": "W/\"72-bhxgOIJ6KPILpjBCDSlDX1Z7qxE\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 200,
+      "url": "http://localhost:3001/file-info/7d2e7fa0-5e4b-47c1-91ed-2c1365de37bd"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 2.53,
+      "identifier_sha256": "577fcede58daf4c3a7a1597e219a4eb5025aea9f1abff95af9f47c7d8e1c97df",
+      "method": "GET",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 03 Oct 2026 20:18:38 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/file-info/fd0dd49b-0a1e-437f-a1c6-33ca9086e94e"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 2.81,
+      "identifier_sha256": "7544432a86e0a181f6cf041d01b79cdfdf04cb99f843fb47345be8d43f064164",
+      "method": "GET",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 03 Oct 2026 20:18:38 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/file-info/f3207506-4e50-4f3c-8df6-d9de8ee6a714"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 2.59,
+      "identifier_sha256": "0eed63a9ec3914aaa27d917021984d68461b79e2ee656b3243df28daac157242",
+      "method": "GET",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 03 Oct 2026 20:18:38 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/file-info/ae4d49da-41c6-4cf7-8ab2-c665982a054c"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 2.91,
+      "identifier_sha256": "1cb3572eb4071b5ee484789dd0bdaac972cfa430a04f4a2f956f0b6df634aac5",
+      "method": "GET",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 03 Oct 2026 20:18:38 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/file-info/702ce4e9-2ccc-467d-9031-6d05cac958c8"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 2.22,
+      "identifier_sha256": "1b40bd96c1e66ea2a1f1bb393a9ee21449eb7c758f6a0f5dfb107d9cd6a1f135",
+      "method": "GET",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 03 Oct 2026 20:18:38 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/file-info/09e2c37b-fd2e-40e7-b95a-c16bc7cbf76f"
+    }
+  ],
+  "request_template": {
+    "headers": {},
+    "method": "GET",
+    "url": "http://localhost:3001/file-info/{{ID}}"
+  },
+  "response_clusters": [
+    {
+      "count": 1,
+      "request_indexes": [
+        0
+      ],
+      "signature": {
+        "body_sha256": "b6be6ad99513c3069d3fcd76d2b70b4c993d5fc677895314782d09fc54afcb74",
+        "content_length": 114,
+        "ok": true,
+        "status": 200
+      }
+    },
+    {
+      "count": 5,
+      "request_indexes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "signature": {
+        "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+        "content_length": 26,
+        "ok": true,
+        "status": 404
+      }
+    }
+  ]
+}

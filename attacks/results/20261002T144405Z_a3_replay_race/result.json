@@ -1,0 +1,223 @@
+{
+  "observations": [
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 20.18,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 14:44:05 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/download/85525631-1c5e-40a4-b887-4ec6d71293b4"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 21.64,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 14:44:05 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/download/85525631-1c5e-40a4-b887-4ec6d71293b4"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 17.99,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 14:44:05 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/download/85525631-1c5e-40a4-b887-4ec6d71293b4"
+    },
+    {
+      "body_preview": "{\"encrypted_blob\":\"c3KXlQ1AHzvTfyY/VOpHBRkOhXr30wqxzn76m5FtPpSSVzvQwaDcTJqdeuDQcDs/me7UJt4Aa/xNc2DykWXLS4mjM2q7L5McspxaC0iz2s3UeLBM80MPOalJJ7FlUym2vWemMEHXMEVcENNv3QN9g9Wj16kYzsQTFXRArbtp0icL0gl443U+5YMIJOoCqyR1klL6C35uz1qgv/g4gJGU2mTRJrTSYVHWCwdRFDMO8u8BmBPTHrc/hwSkRUegrRpj+CI8eMtQ6uYxjr33SFaNt03wr",
+      "body_sha256": "9bbe57a586eee01b60015b5dd12250aea3733d895afbcbd0044fca42017a8e74",
+      "content_length": 609070,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 18.78,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "609070",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 14:44:05 GMT",
+        "ETag": "W/\"94b2e-8fTeQFqOgq6ebjoFRWzV111vZmI\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 200,
+      "url": "http://localhost:3001/download/85525631-1c5e-40a4-b887-4ec6d71293b4"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 18.04,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 14:44:05 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/download/85525631-1c5e-40a4-b887-4ec6d71293b4"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 17.36,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 14:44:05 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/download/85525631-1c5e-40a4-b887-4ec6d71293b4"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 16.81,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 14:44:05 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/download/85525631-1c5e-40a4-b887-4ec6d71293b4"
+    },
+    {
+      "body_preview": "{\"error\":\"File not found\"}",
+      "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+      "content_length": 26,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 16.36,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "26",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 14:44:05 GMT",
+        "ETag": "W/\"1a-qXGfN9t+AtsqoUJSBpc9ym+XpDk\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 404,
+      "url": "http://localhost:3001/download/85525631-1c5e-40a4-b887-4ec6d71293b4"
+    }
+  ],
+  "request_template": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "json": {
+      "key_hash": "6b525d1d48e7d439f7218386a748aa232cb18f1569d41b1739783f559ec4a10e"
+    },
+    "method": "POST",
+    "url": "http://localhost:3001/download/85525631-1c5e-40a4-b887-4ec6d71293b4"
+  },
+  "response_clusters": [
+    {
+      "count": 7,
+      "request_indexes": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+      ],
+      "signature": {
+        "body_sha256": "811de0d1fef7c9e0efae9cac56aa62dc5ddeff228cdb572326c97e6079a87030",
+        "content_length": 26,
+        "ok": true,
+        "status": 404
+      }
+    },
+    {
+      "count": 1,
+      "request_indexes": [
+        3
+      ],
+      "signature": {
+        "body_sha256": "9bbe57a586eee01b60015b5dd12250aea3733d895afbcbd0044fca42017a8e74",
+        "content_length": 609070,
+        "ok": true,
+        "status": 200
+      }
+    }
+  ],
+  "workers": 8
+}

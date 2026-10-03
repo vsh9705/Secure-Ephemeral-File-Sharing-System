@@ -1,0 +1,10 @@
+{
+  "method": "POST",
+  "url": "http://localhost:3001/download/962b144e-60a3-4e2c-9689-3e7b6eb69b78",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "json": {
+    "key_hash": "a2ca4710ffb9784324666a0228ef06383c907e3699ecfc99ed0446cb8c02d3c3"
+  }
+}

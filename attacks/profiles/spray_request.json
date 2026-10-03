@@ -1,0 +1,11 @@
+{
+  "method": "POST",
+  "url": "http://localhost:3001/download/9129e28f-fb5e-4d09-b741-0cc797164ce9",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "json": {
+    "key_hash": "7157c4000146fe0dac753752f002477da4278091881b3d9c060e3436da0a3ed2",
+    "password": "{{GUESS}}"
+  }
+}

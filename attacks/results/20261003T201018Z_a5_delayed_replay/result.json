@@ -1,0 +1,35 @@
+{
+  "observation": {
+    "body_preview": "{\"error\":\"File has expired\"}",
+    "body_sha256": "c39f384a86fb051073a261218dff19567b6df1bf16fe34cbae8665811f7811e8",
+    "content_length": 28,
+    "content_type": "application/json; charset=utf-8",
+    "elapsed_ms": 17.1,
+    "method": "POST",
+    "ok": true,
+    "response_headers": {
+      "Access-Control-Allow-Origin": "http://localhost:5173",
+      "Connection": "keep-alive",
+      "Content-Length": "28",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Sat, 03 Oct 2026 20:10:18 GMT",
+      "ETag": "W/\"1c-bKaABdl+9MbaKlrDLoFZvhGYNbQ\"",
+      "Keep-Alive": "timeout=5",
+      "Vary": "Origin",
+      "X-Powered-By": "Express"
+    },
+    "status": 404,
+    "url": "http://localhost:3001/download/962b144e-60a3-4e2c-9689-3e7b6eb69b78"
+  },
+  "request_template": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "json": {
+      "key_hash": "a2ca4710ffb9784324666a0228ef06383c907e3699ecfc99ed0446cb8c02d3c3"
+    },
+    "method": "POST",
+    "url": "http://localhost:3001/download/962b144e-60a3-4e2c-9689-3e7b6eb69b78"
+  },
+  "wait_seconds": 0.0
+}

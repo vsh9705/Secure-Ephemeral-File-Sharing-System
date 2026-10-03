@@ -1,540 +1,500 @@
-# Local security evaluation lab guide
+# Configurable attack-simulation lab
 
-This is a terminal-by-terminal guide for running the eight controlled attacks
-against your own local application. Do not run them while a real file is
-waiting to be downloaded: the test scripts use the same database and uploads
-folder as the application.
+These are attack tools, not tests that know what your application is supposed
+to return. They do not contain an expected status code, an expected PASS, an
+ephemeral.share key, or an application-specific decision rule.
 
-Every script creates a small AES-GCM encrypted test file, attacks it through
-the real local API, and prints PASS or FAIL. They target only
-http://localhost:3001.
+Each tool records what actually happened: HTTP status, response size, digest,
+response preview, timing, captured field names, marker visibility, or storage
+artefacts. You interpret those observations against your application's security
+requirement. This is how an evaluation remains credible when it is adapted to
+another authorised application.
 
-## Before you start
+The only target-specific material belongs in a request template or a disposable
+test artefact that you create. The generic engines are reusable for another
+HTTP application by changing those inputs.
 
-You need the repository at /home/vasu/repos/btp and the Conda environment
-named security. It contains Python, requests, cryptography, and mitmproxy.
-You need three terminal windows. A fourth is needed only for the optional
-browser proxy demonstration.
+Run these tools only against an application you own or are explicitly
+authorised to test. Network-sending tools require the flag
+--i-own-this-target.
 
-Do not run two backend servers. If one is already running, go to its terminal
-and press Ctrl+C before starting this lab.
+## Result files
 
-## Terminal 1: start the backend
+Every run writes a fresh JSON evidence directory:
 
-Open a new terminal. Run the following commands, one at a time:
+~~~text
+attacks/results/YYYYMMDDTHHMMSSZ_attack_name/result.json
+~~~
+
+These evidence files are more important than terminal output. They preserve
+the status codes, response hashes, response sizes, timings, and test
+configuration used for that specific run. Inspect them with:
+
+~~~bash
+find attacks/results -maxdepth 2 -type f | sort
+cat attacks/results/PASTE_THE_DIRECTORY_NAME/result.json
+~~~
+
+Because replay and spray evidence includes the request template, it can contain
+a disposable credential. Use only disposable test shares and passwords, do not
+commit the results directory, and delete evidence when your report no longer
+needs it.
+
+Proxy tools write JSON Lines files. Read them with:
+
+~~~bash
+cat attacks/results/proxy/flows.jsonl
+cat attacks/results/tamper/tampered_flows.jsonl
+~~~
+
+## Part 1 — Start this application
+
+Use three terminals. Terminal 1 runs the backend. Terminal 2 runs attacks.
+Terminal 3 is used only for proxy attacks.
+
+### Terminal 1 — backend
 
 ~~~bash
 source /home/vasu/miniconda3/bin/activate security
-conda env list
-~~~
-
-Your prompt should start with (security). The output of conda env list should
-show an asterisk on the security line.
-
-Now run:
-
-~~~bash
 cd /home/vasu/repos/btp/backend
 node server.js > server.log 2>&1
 ~~~
 
-Leave this command running. It may look blank because its messages are being
-written to backend/server.log. This is intentional: A7 reads that log.
+Leave this terminal running. It is intentionally quiet because output goes to
+backend/server.log.
 
-To inspect the backend log without stopping the server, use another terminal:
-
-~~~bash
-tail -n 30 /home/vasu/repos/btp/backend/server.log
-~~~
-
-## Terminal 2: prepare the attack runner
-
-Open a second terminal and run:
+### Terminal 2 — attack environment
 
 ~~~bash
 source /home/vasu/miniconda3/bin/activate security
 cd /home/vasu/repos/btp
-python -c "import requests, cryptography; print('Python libraries are ready')"
+python -c "import requests, cryptography, mitmproxy; print('security environment ready')"
 curl http://localhost:3001/health
 ~~~
 
-Expected output:
+The final command must print:
 
 ~~~text
-Python libraries are ready
 {"status":"ok"}
 ~~~
 
-If curl cannot connect, return to Terminal 1. Ensure node server.js is still
-running and check the last 30 lines of backend/server.log.
+### Optional frontend terminal
 
-## Optional Terminal 3: start the normal browser application
-
-The automated tests A1 through A7 do not require the frontend. To use the UI
-as well, open a third terminal and run:
+Several exercises need you to create a disposable share in the browser. Open
+another terminal:
 
 ~~~bash
 cd /home/vasu/repos/btp/frontend
 npm run dev
 ~~~
 
-Open the Local address printed by Vite, normally http://localhost:5173.
+Open the Local URL printed by Vite, normally http://localhost:5173.
 
-## Critical rate-limit rule
+## Part 2 — Create an application request template
 
-The backend allows ten download attempts from one IP address in one minute.
-A4 and A5 deliberately use that limit. After A4, wait 65 seconds before A5.
-After A5, wait another 65 seconds before A6:
+A request template is a JSON description of a request that you are authorised
+to replay. It is the normal way a reusable attack tool learns where to send
+traffic. It is not hardcoded into the tool.
 
-~~~bash
-sleep 65
-~~~
-
-This command prints nothing. Do not try to clear the limit by restarting the
-backend: attempts are stored in SQLite, so a restart does not clear them.
-
-## Attack order
-
-Run every command in Terminal 2 from /home/vasu/repos/btp. Wait for a verdict
-before running the next command.
-
-| Attack | Command |
-| --- | --- |
-| A1 | python attacks/a1_db_dump.py |
-| A2 | python attacks/a2_blob_exfil.py |
-| A3 | python attacks/a3_replay.py |
-| A4 | python attacks/a4_bruteforce_key.py |
-| wait | sleep 65 |
-| A5 | python attacks/a5_bruteforce_password.py |
-| wait | sleep 65 |
-| A6 | python attacks/a6_ttl_bypass.py |
-| A7 | python attacks/a7_log_inspection.py |
-
-The detailed interpretation for each attack follows.
-
-## A1 — Database-dump attack
-
-### Attacker story
-
-The attacker copied backend/fileshare.db from server storage and wants to find
-the AES key, plaintext, or a usable password.
-
-### Command
-
-~~~bash
-python attacks/a1_db_dump.py
-~~~
-
-### What the script does
-
-It uploads a real encrypted fixture with a password, then opens the SQLite
-database directly and checks its schema and inserted row.
-
-### Passing result
-
-The UUID changes each run. These lines must be true:
+For this application, create a new disposable share in the browser. Copy its
+share URL. It looks like:
 
 ~~~text
-Schema has no raw-key column: True
-Password is stored as Argon2id: True
-Known plaintext marker absent from DB: True
-VERDICT: PASS
+http://localhost:5173/download#id=FILE_ID&key=BASE64URL_KEY
 ~~~
 
-### Presentation wording
+The string before &key= is FILE_ID. The string after &key= is BASE64URL_KEY.
+Do not use a real file or a password you use anywhere else.
 
-“A database compromise reveals metadata, a key verifier, and an Argon2id
-password hash. It does not reveal the raw AES key or the test file plaintext,
-so the database dump alone cannot decrypt the file.”
-
-Do not claim metadata is hidden. Filenames, MIME types, timestamps, and blob
-paths are stored in the database.
-
-## A2 — Encrypted-blob theft attack
-
-### Attacker story
-
-The attacker stole a .bin file from backend/uploads but did not obtain the
-browser's AES key.
-
-### Command
+In Terminal 2, calculate the credential that the browser sends to the
+download API. Replace PASTE_KEY with the exact key value from the link:
 
 ~~~bash
-python attacks/a2_blob_exfil.py
+python -c "import base64, hashlib; k='PASTE_KEY'; b=base64.urlsafe_b64decode(k+'='*((4-len(k)%4)%4)); print(hashlib.sha256(b).hexdigest())"
 ~~~
 
-### Passing result
+Copy the 64-character output. Create a template file using an editor:
+
+~~~json
+{
+  "method": "POST",
+  "url": "http://localhost:3001/download/PASTE_FILE_ID",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "json": {
+    "key_hash": "PASTE_64_CHARACTER_HASH"
+  }
+}
+~~~
+
+Save it as:
 
 ~~~text
-Known plaintext bytes absent from stolen blob: True
-AES-GCM rejects decryption with an attacker key: True
-VERDICT: PASS
+attacks/profiles/download_request.json
 ~~~
 
-### Presentation wording
+If the disposable share has a password, add a password property under json.
+This file is a live credential for that disposable share. Never commit it.
+After an actual download succeeds, the share is consumed and you must create a
+new one for the next attack.
 
-“Storage theft yields ciphertext. AES-GCM rejects decryption with any key
-other than the original client-generated 256-bit key.”
+The file attacks/profiles/ephemeral_share_examples.md contains the same setup
+with templates for password spraying and identifier enumeration.
 
-If the script says the blob is missing, run it again immediately. The fixture
-has a short expiry time.
+## A1 — Storage-compromise forensics
 
-## A3 — One-time-link replay race
+### What an attacker does
 
-### Attacker story
+The attacker copies the server's storage directory, including database,
+database WAL/SHM files, and uploaded blobs. Rather than assuming the database
+is safe, this tool scans every file for a known plaintext marker.
 
-Two recipients have the same valid link and submit download requests at the
-same time. The attacker wants both requests to receive the ciphertext.
+### Prepare a controlled marker
 
-### Command
+In Terminal 2:
 
 ~~~bash
-python attacks/a3_replay.py
+printf 'FORENSICS_MARKER_2026_DO_NOT_USE_REAL_DATA' > /tmp/forensics_marker.txt
 ~~~
 
-### Passing result
+Upload that exact small text file through the browser UI as a disposable share.
+Do not download it yet.
+
+### Run the attack
+
+~~~bash
+python attacks/a1_storage_forensics.py --root backend --marker-file /tmp/forensics_marker.txt
+~~~
+
+### Inspect and evaluate
+
+The terminal prints the evidence directory. Open result.json. For every
+database, WAL, SHM, and blob file, it records:
+
+- contains_known_plaintext
+- SHA-256
+- sample entropy
+- first bytes as hexadecimal
+- whether it is a SQLite database
+
+For encrypted storage, the marker should be absent from database files and
+from the blob. If it appears in a blob, database, WAL, or SHM file, you have
+concrete evidence that plaintext leaked into server storage.
+
+This is stronger than merely checking the database schema because it searches
+the actual storage artefacts an attacker would copy.
+
+## A2 — Stolen-blob forensics
+
+### What an attacker does
+
+The attacker steals a particular server-side blob and examines it without
+assuming a cipher, nonce format, or implementation language.
+
+### Prepare
+
+Use the FILE_ID from your disposable share URL. For this application its blob
+path is:
 
 ~~~text
-Concurrent request status codes: [200, 404]
-VERDICT: PASS
+backend/uploads/FILE_ID.bin
 ~~~
 
-The order can be [404, 200]. Exactly one 200 is the requirement. The rejected
-request is usually 404 because the successful request deletes the record. A
-410 rejection is also safe.
-
-### Presentation wording
-
-“After authentication, a conditional accessed = 0 update inside a SQLite
-transaction lets only one concurrent request claim the share. The winning
-request reads and deletes it.”
-
-If two requests return 200, that is a real replay failure. Save the output and
-do not claim one-time access. If responses are 429, wait 65 seconds and retry.
-
-## A4 — Online random key guessing
-
-### Attacker story
-
-The attacker knows a file ID and sends random 256-bit key guesses. The script
-hashes each guessed key because that is the format the browser sends.
-
-### Command
+Create a known plaintext file first, upload it, and keep the original local
+file. For example:
 
 ~~~bash
-python attacks/a4_bruteforce_key.py
+printf 'BLOB_MARKER_2026' > /tmp/blob_marker.txt
 ~~~
 
-### Passing result
+### Run the attack
 
-~~~text
-Successful guesses: 0
-Rate-limit responses (429): 2
-VERDICT: PASS
-~~~
-
-The exact number of 429 results can be more than two because A3 used two
-download attempts earlier. The required facts are zero successful guesses,
-at least one 429, and PASS.
-
-### Presentation wording
-
-“Random 256-bit key guesses have negligible chance of matching the
-client-generated key. The server additionally throttles repeated online
-attempts from an address.”
-
-Immediately after A4, run sleep 65 and wait until it returns.
-
-## A5 — Password-dictionary attack
-
-### Attacker story
-
-The attacker already has the correct key hash but tries common passwords such
-as password, 123456, and qwerty.
-
-### Command
-
-Run this only after the 65-second wait following A4:
+Replace FILE_ID:
 
 ~~~bash
-python attacks/a5_bruteforce_password.py
+python attacks/a2_blob_forensics.py --blob backend/uploads/FILE_ID.bin --known-plaintext-file /tmp/blob_marker.txt
 ~~~
 
-### Passing result
+### Inspect and evaluate
 
-~~~text
-Successful guesses: 0
-Rate-limit responses (429): 2
-VERDICT: PASS
-~~~
+The evidence records whether the original bytes occur in the blob, whether
+common cleartext file signatures occur, entropy, a digest, and a hex prefix.
 
-The number of 429 responses may vary, but there must be no 200.
+For a properly encrypted blob, the known plaintext should not occur and the
+blob normally has high entropy. High entropy alone is not proof of encryption;
+it is only a forensic indicator. If known plaintext or an original PDF/PNG/ZIP
+signature occurs unexpectedly, preserve result.json and treat it as a
+confidentiality finding.
 
-### Presentation wording
+## A3 — Concurrent replay race
 
-“The password is stored with Argon2id and the tested common-password
-dictionary did not unlock the share. The endpoint also limits repeated online
-requests.”
+### What an attacker does
 
-This does not prove that a weak password can never be guessed. It proves this
-specific dictionary and online rate are rejected.
+The attacker obtains one valid request and sends it simultaneously from several
+workers, attempting to exploit a check-then-delete race.
 
-Immediately after A5, run sleep 65 and wait until it returns.
+### Run the attack
 
-## A6 — Expiry-bypass attempt
-
-### Attacker story
-
-The attacker has a valid key, waits for the TTL to expire, then tries to
-download before the background cron cleanup necessarily runs.
-
-### Command
-
-Run this only after the 65-second wait following A5:
+Create a new disposable share and new download_request.json. Then run:
 
 ~~~bash
-python attacks/a6_ttl_bypass.py
+python attacks/a3_replay_race.py --request attacks/profiles/download_request.json --workers 8 --i-own-this-target
 ~~~
 
-### Passing result
+### Inspect and evaluate
 
-~~~text
-Post-expiry response: 404 {"error":"File has expired"}
-VERDICT: PASS
-~~~
+The tool does not decide that 200 or 404 is good. It records one observation
+per worker plus response clusters. Look at:
 
-JSON spacing may differ. The required HTTP status is 404.
+- status
+- elapsed_ms
+- content_length
+- body_sha256
+- body_preview
 
-### Presentation wording
+For a one-time share requirement, count the workers that received the actual
+file response. A secure result has one such response. Two or more independent
+workers receiving the same protected resource is evidence of a replay race.
 
-“The download route checks the expiry timestamp before serving the blob. The
-link is refused even during the interval before the once-per-minute cron job
-removes the file physically.”
-
-If you receive 429, you skipped the required wait after A5. Wait 65 seconds,
-then run A6 again.
-
-## A7 — Server-log inspection
-
-### Attacker story
-
-The attacker can read server request logs and searches for the URL fragment
-that contains the decryption key.
-
-### Prerequisite
-
-Terminal 1 must still be running this form of command:
+For this application, a response carrying encrypted_blob is the file response.
+You can search the saved JSON:
 
 ~~~bash
-node server.js > server.log 2>&1
+grep -n encrypted_blob attacks/results/PASTE_A3_DIRECTORY/result.json
 ~~~
 
-### Command
+## A4 — Authorised online credential or token spray
+
+### What an attacker does
+
+The attacker tries a supplied candidate list against a supplied request
+placeholder. This is a generic credential, key-hash, token, OTP, or API-key
+spray engine. It does not include a hardcoded password dictionary and it does
+not decide which response means success.
+
+### Prepare the request and wordlist
+
+Create a disposable password-protected share. Make a copy of
+download_request.json named spray_request.json. Add or replace its password:
+
+~~~json
+"password": "{{GUESS}}"
+~~~
+
+Create your own small authorised candidate file:
 
 ~~~bash
-python attacks/a7_log_inspection.py
+cat > /tmp/test_candidates.txt <<'EOF'
+incorrect-one
+incorrect-two
+incorrect-three
+EOF
 ~~~
 
-### Passing result
+The command above is only an example test corpus. In a legitimate assessment,
+the wordlist must be approved by the system owner and chosen for the threat
+model. It is not embedded in the attack source.
 
-~~~text
-Fragment marker appears in new server logs: False
-Server logged the requested route: True
-VERDICT: PASS
+### Run the attack
+
+~~~bash
+python attacks/a4_request_spray.py --request attacks/profiles/spray_request.json --wordlist /tmp/test_candidates.txt --max-attempts 3 --delay 1 --i-own-this-target
 ~~~
 
-### Presentation wording
+### Inspect and evaluate
 
-“The share key is after the # character. Browsers process URL fragments
-locally and do not include them in HTTP requests. The server logs the route
-but never the fragment secret.”
+The tool saves a SHA-256 of each candidate rather than the candidate text. It
+groups responses by status, length, and body digest. Review result.json:
 
-If the script cannot find server.log, stop Terminal 1 with Ctrl+C and restart
-it using the exact Terminal 1 commands. If the marker appears, preserve that
-result: it is a serious logging failure.
+~~~bash
+cat attacks/results/PASTE_A4_DIRECTORY/result.json
+~~~
 
-## A8 — Man-in-the-middle proxy evaluation
+Different clusters are concrete anomalies. For example, if most candidates
+produce one body digest but one produces a different response containing file
+data or a different authorization state, investigate that candidate. If all
+responses are identical, the corpus found no response-level evidence of a
+valid credential. If the application returns 429, that is observed throttling,
+not an assumed pass.
 
-### Attacker story
+## A5 — Delayed replay for TTL or revocation
 
-An on-path attacker reads traffic between the browser and the backend. The
-current project uses plain HTTP on localhost, so a proxy can inspect requests
-without any TLS certificate.
+### What an attacker does
 
-The automated test looks for three controlled values:
+The attacker retains a captured valid request and sends it only after the
+resource should have expired or been revoked.
 
-| Controlled value | Expected result | Meaning |
-| --- | --- | --- |
-| File plaintext marker | false | The file was encrypted before upload. |
-| Raw AES key marker | false | The client did not send its AES key. |
-| Optional password marker | true | Plain HTTP exposes the password to an on-path attacker. |
+### Run the attack
 
-The password result is intentionally a security FINDING. It is not a pass.
+Create a disposable share with a known TTL. Save the valid request template.
+For this UI the shortest selectable TTL is five minutes. To test expiry, wait
+301 seconds:
 
-### Certificates
+~~~bash
+python attacks/a5_delayed_replay.py --request attacks/profiles/download_request.json --wait-seconds 301 --i-own-this-target
+~~~
 
-For this project, do not install a certificate. The traffic is HTTP, so
-mitmproxy can inspect it directly. If you later change the system to HTTPS,
-an intercepting proxy needs its test certificate installed in a dedicated test
-browser profile. That is not needed for this lab.
+### Inspect and evaluate
 
-### Terminal 3: start mitmproxy
+The result contains the actual post-wait response. To make a proper
+comparison, create a separate disposable share with the same settings and run:
 
-Open a third terminal and run:
+~~~bash
+python attacks/a5_delayed_replay.py --request attacks/profiles/download_request.json --wait-seconds 0 --i-own-this-target
+~~~
+
+Compare the pre-expiry and post-expiry result.json files. Your security
+requirement determines the expected difference. For an expiring share, the
+post-expiry response must not contain the protected resource. The tool does
+not assume a particular error code.
+
+## A6 — Identifier enumeration
+
+### What an attacker does
+
+The attacker probes identifiers and looks for response differences that reveal
+which IDs exist, have expired, or belong to another user.
+
+### Prepare
+
+Copy a request template that queries object metadata. For this application:
+
+~~~json
+{
+  "method": "GET",
+  "url": "http://localhost:3001/file-info/{{ID}}",
+  "headers": {}
+}
+~~~
+
+Save it as attacks/profiles/identifier_request.json. Make a list containing
+only authorised test IDs: one currently existing disposable FILE_ID and a few
+random UUIDs you created yourself.
+
+~~~bash
+python -c "import uuid; [print(uuid.uuid4()) for _ in range(5)]" > /tmp/test_ids.txt
+~~~
+
+Edit /tmp/test_ids.txt and add the known disposable FILE_ID as its first line.
+
+### Run the attack
+
+~~~bash
+python attacks/a6_identifier_enumeration.py --request attacks/profiles/identifier_request.json --identifiers /tmp/test_ids.txt --max-attempts 6 --i-own-this-target
+~~~
+
+### Inspect and evaluate
+
+The tool reports response clusters. Compare status, length, digest, and timing
+between your known-valid ID and random IDs. Different responses are factual
+enumeration signals. Whether that is acceptable depends on your system: public
+shares may intentionally say that an object exists, while private objects
+usually should not expose distinguishable existence information.
+
+## A7 — Generic on-path traffic capture
+
+### What an attacker does
+
+The attacker runs a local intercepting proxy and captures actual traffic. The
+proxy does not know your application's expected result. It records the fields
+and bytes it actually sees.
+
+### Terminal 3: start capture
 
 ~~~bash
 source /home/vasu/miniconda3/bin/activate security
 cd /home/vasu/repos/btp
-mitmdump --version
-mitmdump -p 8080 -s attacks/a8_mitm_upload.py
+mitmdump -p 8080 -s attacks/a7_mitm_capture.py --set evidence_dir=attacks/results/proxy --set url_regex=/upload --set marker=TRANSPORT_MARKER
 ~~~
 
-Leave the final command running. You should see HTTP(S) proxy listening at
-*:8080. If it says Address already in use, stop the earlier mitmproxy process
-with Ctrl+C, then start it again.
+### Browser setup
 
-### Terminal 2: send one controlled upload through the proxy
-
-Return to Terminal 2 and run:
+Start the frontend if needed. Then launch a temporary Chrome profile through
+the proxy:
 
 ~~~bash
+google-chrome --user-data-dir=/tmp/ephemeral-share-proxy-profile --proxy-server=http://127.0.0.1:8080 --proxy-bypass-list='<-loopback>' http://localhost:5173
+~~~
+
+Use chromium in place of google-chrome if that is your browser command.
+
+In the temporary browser, upload a disposable text file whose content includes
+TRANSPORT_MARKER. You can also choose a disposable password.
+
+After uploading, stop mitmdump with Ctrl+C. In Terminal 2 inspect:
+
+~~~bash
+cat attacks/results/proxy/flows.jsonl
+~~~
+
+### Evaluate
+
+The capture contains actual request JSON field names, sensitive-looking field
+names, request/response hashes, sizes, status codes, and whether the marker
+appeared. With encrypted client-side upload, the plaintext marker should not
+be in the request body. If it is, that is direct plaintext-in-transit evidence.
+
+For this project HTTP has no TLS. Do not install a certificate: mitmproxy can
+read the traffic directly. If you later add HTTPS, a test browser must trust
+the mitmproxy certificate before traffic can be intercepted.
+
+## A8 — Active ciphertext-tampering proxy
+
+### What an attacker does
+
+The attacker changes a JSON field during transit, then observes whether the
+server accepts it and whether the recipient detects corruption. This is an
+availability and integrity attack, not a confidentiality attack.
+
+### Terminal 3: start the tampering proxy
+
+~~~bash
+source /home/vasu/miniconda3/bin/activate security
 cd /home/vasu/repos/btp
-python attacks/a8_mitm_client.py
+mitmdump -p 8080 -s attacks/a8_mitm_tamper.py --set evidence_dir=attacks/results/tamper --set url_regex=/upload --set json_field=encrypted_blob
 ~~~
 
-Expected output:
+### Browser setup and action
 
-~~~text
-Proxied upload response: 200 {"file_id":"..."}
-VERDICT: PASS — the controlled upload passed through mitmproxy.
-~~~
+Launch the temporary proxied browser using the A7 browser command. Upload a
+new disposable file and copy the resulting share URL. The proxy changes the
+first character of the actual encrypted_blob field while preserving its JSON
+shape.
 
-This PASS only confirms that the upload travelled through the proxy. Read the
-evidence file for the security conclusion.
-
-### Read the result
-
-Return to Terminal 3 and press Ctrl+C. In Terminal 2, run:
+Stop mitmdump and inspect:
 
 ~~~bash
-cat attacks/results/a8_mitm_upload.json
+cat attacks/results/tamper/tampered_flows.jsonl
 ~~~
 
-Expected fields:
+Then open the copied share URL in a normal browser and attempt the download.
 
-~~~json
-"plaintext_marker_visible": false
-"raw_key_marker_visible": false
-"password_visible": true
-~~~
+### Evaluate
 
-The addon intentionally does not save the complete intercepted HTTP body or
-the actual password to disk.
+The JSONL file proves whether the tampering proxy changed a request and records
+the server's actual response. The recipient-side result tells you whether the
+application detects corruption. For authenticated encryption, the recipient
+should see a decryption or authentication failure, not silently receive a
+modified plaintext. If a changed encrypted blob decrypts to changed plaintext
+without an error, preserve all evidence: that is a serious integrity failure.
 
-### Presentation wording
+The server may still return an upload success response because it cannot
+decrypt client-side ciphertext. That does not mean tampering succeeded
+cryptographically; it shows a network attacker can cause availability loss
+when HTTP is used.
 
-“The proxy did not see the controlled file plaintext or raw AES key. It did
-see the optional upload password because the app sends it in JSON over HTTP.
-Argon2id protects the password after it reaches server storage, not while it
-travels over the network.”
+## How to defend this methodology
 
-The fix for an actual network deployment is HTTPS. If the requirement is that
-the server must never learn a password either, use a password-authenticated
-key exchange such as OPAQUE; hashing it after receipt is not enough.
+In your presentation, say:
 
-## Optional: repeat A8 with the browser interface
+“The attack engines are target-independent. Target-specific values are
+supplied as disposable request templates and markers. Each run writes raw
+observations such as HTTP status, body hashes, timing, and captured traffic.
+We interpreted those observations against the stated security property rather
+than encoding an expected pass into the attack script.”
 
-This is optional. The automated A8 test is the repeatable evidence for your
-presentation.
-
-1. Start the frontend in Terminal 4:
-
-   ~~~bash
-   cd /home/vasu/repos/btp/frontend
-   npm run dev
-   ~~~
-
-2. Restart mitmproxy in Terminal 3 using the A8 command above.
-
-3. In a new terminal, find your browser:
-
-   ~~~bash
-   command -v google-chrome
-   command -v chromium
-   ~~~
-
-4. Use whichever command printed a path. For Chrome:
-
-   ~~~bash
-   google-chrome --user-data-dir=/tmp/ephemeral-share-proxy-profile --proxy-server=http://127.0.0.1:8080 --proxy-bypass-list='<-loopback>' http://localhost:5173
-   ~~~
-
-   For Chromium, replace only google-chrome with chromium. The temporary
-   profile protects your normal browser settings. The proxy-bypass option is
-   required because browsers normally bypass proxies for localhost.
-
-5. In that temporary browser, create or select a text file whose only content
-   is:
-
-   ~~~text
-   MITM-PLAINTEXT-SENTINEL-DO-NOT-TRANSMIT
-   ~~~
-
-6. On the upload page select that file. Set Password protection to:
-
-   ~~~text
-   mitm-password-sentinel
-   ~~~
-
-7. Click Encrypt and upload. Terminal 3 will show a POST request to /upload.
-   Stop mitmproxy with Ctrl+C and read attacks/results/a8_mitm_upload.json
-   from Terminal 2.
-
-For the browser upload, plaintext_marker_visible should be false and
-password_visible should be true. The JSON field list has no raw key field.
-The automated A8 client supplies the stronger raw-key proof because it uses a
-known test key marker.
-
-## Save evidence for your report
-
-Create a folder:
-
-~~~bash
-cd /home/vasu/repos/btp
-mkdir -p attacks/evidence
-~~~
-
-When repeating an attack for presentation evidence, save the terminal output:
-
-~~~bash
-python attacks/a1_db_dump.py | tee attacks/evidence/a1_db_dump.txt
-~~~
-
-Replace a1_db_dump with each other script name. Keep the required 65-second
-waits around A4, A5, and A6. Save the A8 JSON separately:
-
-~~~bash
-cp attacks/results/a8_mitm_upload.json attacks/evidence/a8_mitm_upload.json
-~~~
-
-| Attack | Passing condition | What to say |
-| --- | --- | --- |
-| A1 | Raw key and plaintext absent; Argon2id hash present | Database dump does not decrypt the file. |
-| A2 | Plaintext absent; wrong AES-GCM key rejected | Stolen blob is unusable without the key. |
-| A3 | Exactly one 200 | One-time access survives a concurrent race. |
-| A4 | No 200 and at least one 429 | Key guesses fail and are throttled. |
-| A5 | No 200 and at least one 429 | This password dictionary fails and is throttled. |
-| A6 | 404 after expiry | Expired links are refused by the download route. |
-| A7 | Fragment marker is false in log | Share fragments do not reach server logs. |
-| A8 | Plaintext/key false; password true | Encryption works, but HTTP exposes upload passwords. |
-
-## Finish
-
-Press Ctrl+C in every terminal that is still running: mitmproxy, frontend, and
-backend. Test fixtures have a 60-second TTL. The cron job runs every minute, so
-their blobs and rows disappear automatically within about two minutes.
-
-Use this accurate final statement: “The application passed the defined storage,
-ciphertext, replay, guessing, expiry, and log-exposure evaluations. The proxy
-evaluation found that plain HTTP exposes the optional upload password, so HTTPS
-is required before a real network deployment.”
+Do not say that every attack passed. State the concrete observation. In
+particular, A7 and A8 will demonstrate that plain HTTP lets an on-path attacker
+observe and modify transport traffic. HTTPS is required before deployment on
+an untrusted network.

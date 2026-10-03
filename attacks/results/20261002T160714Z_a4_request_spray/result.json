@@ -1,0 +1,104 @@
+{
+  "attempt_count": 3,
+  "observations": [
+    {
+      "body_preview": "{\"error\":\"Incorrect password\"}",
+      "body_sha256": "8349f9d792eec9a8f67b841deafb253f5b6ddfd78101d511bb96313981afd84d",
+      "candidate_index": 0,
+      "candidate_sha256": "e913d21c89b41877f5dc9d091745be8453ed9e7b294b8c96cc539ff38a36ffcc",
+      "content_length": 30,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 93.54,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "30",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 16:07:12 GMT",
+        "ETag": "W/\"1e-0SsF9pF0EvTPysOmAJKQxzEhd/8\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 403,
+      "url": "http://localhost:3001/download/9129e28f-fb5e-4d09-b741-0cc797164ce9"
+    },
+    {
+      "body_preview": "{\"error\":\"Incorrect password\"}",
+      "body_sha256": "8349f9d792eec9a8f67b841deafb253f5b6ddfd78101d511bb96313981afd84d",
+      "candidate_index": 1,
+      "candidate_sha256": "967cf222383a5c09ba7b08f49b18a2f4ca64ff6627a01da993e92ff2b916a84c",
+      "content_length": 30,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 78.5,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "30",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 16:07:13 GMT",
+        "ETag": "W/\"1e-0SsF9pF0EvTPysOmAJKQxzEhd/8\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 403,
+      "url": "http://localhost:3001/download/9129e28f-fb5e-4d09-b741-0cc797164ce9"
+    },
+    {
+      "body_preview": "{\"error\":\"Incorrect password\"}",
+      "body_sha256": "8349f9d792eec9a8f67b841deafb253f5b6ddfd78101d511bb96313981afd84d",
+      "candidate_index": 2,
+      "candidate_sha256": "73f54cab7e35f7158d2d8822498c199d1946a064c0aa3ab3192cd41a76cc064f",
+      "content_length": 30,
+      "content_type": "application/json; charset=utf-8",
+      "elapsed_ms": 83.72,
+      "method": "POST",
+      "ok": true,
+      "response_headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Connection": "keep-alive",
+        "Content-Length": "30",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 02 Oct 2026 16:07:14 GMT",
+        "ETag": "W/\"1e-0SsF9pF0EvTPysOmAJKQxzEhd/8\"",
+        "Keep-Alive": "timeout=5",
+        "Vary": "Origin",
+        "X-Powered-By": "Express"
+      },
+      "status": 403,
+      "url": "http://localhost:3001/download/9129e28f-fb5e-4d09-b741-0cc797164ce9"
+    }
+  ],
+  "request_template": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "json": {
+      "key_hash": "7157c4000146fe0dac753752f002477da4278091881b3d9c060e3436da0a3ed2",
+      "password": "{{GUESS}}"
+    },
+    "method": "POST",
+    "url": "http://localhost:3001/download/9129e28f-fb5e-4d09-b741-0cc797164ce9"
+  },
+  "response_clusters": [
+    {
+      "count": 3,
+      "request_indexes": [
+        0,
+        1,
+        2
+      ],
+      "signature": {
+        "body_sha256": "8349f9d792eec9a8f67b841deafb253f5b6ddfd78101d511bb96313981afd84d",
+        "content_length": 30,
+        "ok": true,
+        "status": 403
+      }
+    }
+  ]
+}

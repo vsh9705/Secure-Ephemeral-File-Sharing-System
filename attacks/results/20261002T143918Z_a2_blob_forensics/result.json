@@ -1,0 +1,11 @@
+{
+  "blob": "/home/vasu/repos/btp/backend/uploads/46da2789-fa7d-4484-9fe0-16a9e1db0cef.bin",
+  "blob_entropy_bits_per_byte": 5.2322,
+  "blob_sha256": "e072b203f4c118a8799bf9912fda7e524200c435312a84ed47059146024873f0",
+  "blob_size": 44,
+  "first_128_bytes_hex": "0afffd231247dd344346ff94ddf45102717e242aac2072d9b4848a54a45d000b3db301470313deb6dc13ec54",
+  "known_file_magic_found": [],
+  "known_plaintext_found_as_substring": false,
+  "known_plaintext_sha256": "73982b905f96b53550baa33ed71abc31cf7491f8dd585f953c26db3333a9c4ba",
+  "known_plaintext_size": 16
+}
